@@ -22,12 +22,12 @@ const ErrorModal = (props) => {
                 </div>
                 <div className="title">
                 <h1>Error</h1>
+                <hr/>
                 </div>
-                <div className="body">
-                <p>{ErrorMessage}</p>
-                <p>BIG ERROR BIG ERROR</p>
+                <div className="body mt-3 mb-3">
+                <p>{(ErrorMessage).toString()}</p>
                 </div>
-                <div className="footer">
+                <div className="footer mt-4">
                 <button
                     onClick={() => {
                     setOpenModal(false);

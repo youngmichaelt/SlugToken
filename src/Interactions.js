@@ -25,53 +25,86 @@ const Interactions = (props) => {
 
     const [maxStakeAmount, setMaxStakeAmount] = useState(null);
 
+    
+
     let contract = props.contract.contract;
     let defaultAccount = props.contract.defaultAccount;
     let provider = props.contract.provider;
+    let setOpenModal = props.contract.setOpenModal;
+    let setErrorMessage = props.contract.setErrorMessage;
+
     
 
     const approveOrStake = async () => {
-        let contractAddress = await contract.address;
-        let allowance = await contract.allowance(defaultAccount, contractAddress);
+        try{
+            if (defaultAccount != null && defaultAccount.length != 0){
+                let contractAddress = await contract.address;
+                let account = defaultAccount
+                if (account instanceof Array){
+                    account = account[0];
+                }
+                let allowance = await contract.allowance(account, contractAddress);
 
-        let allowanceBalance = allowance * Math.pow(10, 18);
-        setAllowance(ethers.utils.formatUnits(allowance,18));
-        console.log(ethers.utils.formatUnits(allowance,18))
+                let allowanceBalance = allowance * Math.pow(10, 18);
+                setAllowance(ethers.utils.formatUnits(allowance,18));
+                console.log(ethers.utils.formatUnits(allowance,18))
 
-        let selfAllowance = await contract.allowance(defaultAccount, defaultAccount);
-        let selfAllowanceBalance = selfAllowance * Math.pow(10, 18);
-        setSelfAllowance(ethers.utils.formatUnits(selfAllowance,18));
+                let selfAllowance = await contract.allowance(account, account);
+                let selfAllowanceBalance = selfAllowance * Math.pow(10, 18);
+                setSelfAllowance(ethers.utils.formatUnits(selfAllowance,18));
 
-        if (allowanceBalance > 0 && selfAllowanceBalance > 0){
-            setApproveOrStake("Stake");
-        } else {
-            setApproveOrStake("Approve");
+                if (allowanceBalance > 0 && selfAllowanceBalance > 0){
+                    setApproveOrStake("Stake");
+                } else {
+                    setApproveOrStake("Approve");
+                }
+            } else {
+                setApproveOrStake("Stake");
+            }
+            
+        } catch (e) {   
+            setOpenModal(true);
+            setErrorMessage(e);
         }
+        
     }
 
     const getStakeBalance = async () =>{
-        let isStakeHolder = false;
-        let stakeId = 0;
-        if (defaultAccount instanceof Array){
-            [isStakeHolder, stakeId] = await contract.isStakeholder(defaultAccount[0]);
-        } else {
-            [isStakeHolder, stakeId] = await contract.isStakeholder(defaultAccount);
-        }
-        
-        
-        if (isStakeHolder == true){
-            let stakeAmountBig = 0;
-            if (defaultAccount instanceof Array){
-                stakeAmountBig = await contract.stakedTokens(defaultAccount[0]);
+        try {
+            let isStakeHolder = false;
+            let stakeId = 0;
+            if (defaultAccount != null && defaultAccount.length > 0){
+                if (defaultAccount instanceof Array){
+                    [isStakeHolder, stakeId] = await contract.isStakeholder(defaultAccount[0]);
+                } else {
+                    [isStakeHolder, stakeId] = await contract.isStakeholder(defaultAccount);
+                }
+                
+                
+                if (isStakeHolder == true){
+                    let stakeAmountBig = 0;
+                    if (defaultAccount instanceof Array){
+                        stakeAmountBig = await contract.stakedTokens(defaultAccount[0]);
+                    } else {
+                        stakeAmountBig = await contract.stakedTokens(defaultAccount);
+                    }
+                    
+                    let stakeAmount = ethers.utils.formatUnits(stakeAmountBig, 18)
+                    setStakeBalance(stakeAmount);
+                } else {
+                    setStakeBalance(0);
+                }
             } else {
-                stakeAmountBig = await contract.stakedTokens(defaultAccount);
+                setStakeBalance(0);
+                setBalance(0)
+
             }
             
-            let stakeAmount = ethers.utils.formatUnits(stakeAmountBig, 18)
-            setStakeBalance(stakeAmount);
-        } else {
-            setStakeBalance(0);
+        } catch (e) {   
+            setOpenModal(true);
+            setErrorMessage(e);
         }
+        
     }
 
     const stakeStateHandler = () => {
@@ -80,7 +113,10 @@ const Interactions = (props) => {
 
 
         } else {
-            approveOrStake();
+            if (defaultAccount != null && defaultAccount.length > 0){
+                approveOrStake();
+            }
+            
         }
     }
 
@@ -107,94 +143,104 @@ const Interactions = (props) => {
     const stakeHandler = async (e) => {
         e.preventDefault();
 
-        console.log(stakeState);
-
-        if (stakeState == "Unstake"){
-            let contractAddress = await contract.address;
-            let unstakeAmount = parseInt(stakeAmountState);
-            let unstakeAmountBig = ethers.utils.parseUnits(stakeAmountState, 18);
-
-            if (stakeBalance > unstakeAmount){
-                let txn = await contract.unstakeToken(unstakeAmountBig);
-                console.log(txn);
-                setTxnHash("Unstake transaction confirmation hash: " + txn.hash);
-
-                pollTransaction(txn.hash);
-
-                // let balance = 0;
-                
+        try {
+            if (stakeState == "Unstake"){
+                let contractAddress = await contract.address;
+                let unstakeAmount = parseInt(stakeAmountState);
+                let unstakeAmountBig = ethers.utils.parseUnits(stakeAmountState, 18);
+    
+                if (stakeBalance > unstakeAmount){
+                    let txn = await contract.unstakeToken(unstakeAmountBig);
+                    console.log(txn);
+                    setTxnHash("Unstake transaction confirmation hash: " + txn.hash);
+    
+                    pollTransaction(txn.hash);
+    
+                    // let balance = 0;
+                    
+                } else {
+                    window.alert("You cannot unstake more tokens than you have staked...");
+                }
             } else {
-                window.alert("You cannot unstake more tokens than you have staked...");
+                let contractAddress = await contract.address;
+               
+                let stakeAmount = parseInt(stakeAmountState);
+                let stakeAmountBig = ethers.utils.parseUnits(stakeAmountState, 18);
+                // let allowanceBig = ethers.utils.parseUnits(allowance.toString());
+                console.log(parseInt(allowance),selfAllowance, parseInt(ethers.utils.formatUnits(stakeAmountBig,0)), stakeAmount)
+    
+                if (stakeAmount <= parseInt(allowance) && stakeAmount <= parseInt(selfAllowance)){
+    
+                    let txn = await contract.stakeToken(stakeAmountBig);
+                    console.log(txn);
+                    setTxnHash("Stake transaction confirmation hash: " + txn.hash);
+                    pollTransaction(txn.hash);
+    
+                } else {
+                    let approveSelftxn = await contract.approve(defaultAccount, stakeAmountBig);
+                    let txn = await contract.approve(contractAddress, stakeAmountBig);
+                    console.log(txn);
+                    setTxnHash("Approval transaction confirmation hash: " + txn.hash);
+                    pollTransaction(txn.hash);
+                }
             }
-        } else {
-            let contractAddress = await contract.address;
-           
-            let stakeAmount = parseInt(stakeAmountState);
-            let stakeAmountBig = ethers.utils.parseUnits(stakeAmountState, 18);
-            // let allowanceBig = ethers.utils.parseUnits(allowance.toString());
-            console.log(parseInt(allowance),selfAllowance, parseInt(ethers.utils.formatUnits(stakeAmountBig,0)), stakeAmount)
-
-            if (stakeAmount <= parseInt(allowance) && stakeAmount <= parseInt(selfAllowance)){
-
-                let txn = await contract.stakeToken(stakeAmountBig);
-                console.log(txn);
-                setTxnHash("Stake transaction confirmation hash: " + txn.hash);
-                pollTransaction(txn.hash);
-
-            } else {
-                let approveSelftxn = await contract.approve(defaultAccount, stakeAmountBig);
-                let txn = await contract.approve(contractAddress, stakeAmountBig);
-                console.log(txn);
-                setTxnHash("Approval transaction confirmation hash: " + txn.hash);
-                pollTransaction(txn.hash);
-            }
+        } catch (e) {   
+            setOpenModal(true);
+            setErrorMessage(e);
         }
+
+        
         
     }
 
-    const unstakeHandler = async (e) => {
-        e.preventDefault();
-        let contractAddress = await contract.address;
-        let unstakeAmount = parseInt(e.target.unstakeAmount.value);
-        let unstakeAmountBig = ethers.utils.parseUnits(e.target.unstakeAmount.value, 18);
+    // const unstakeHandler = async (e) => {
+    //     e.preventDefault();
+    //     let contractAddress = await contract.address;
+    //     let unstakeAmount = parseInt(e.target.unstakeAmount.value);
+    //     let unstakeAmountBig = ethers.utils.parseUnits(e.target.unstakeAmount.value, 18);
 
-        if (stakeBalance > unstakeAmount){
-            let txn = await contract.unstakeToken(unstakeAmountBig);
-            console.log(txn);
-            setTxnHash("Unstake transaction confirmation hash: " + txn.hash);
+    //     if (stakeBalance > unstakeAmount){
+    //         let txn = await contract.unstakeToken(unstakeAmountBig);
+    //         console.log(txn);
+    //         setTxnHash("Unstake transaction confirmation hash: " + txn.hash);
 
-            pollTransaction(txn.hash);
+    //         pollTransaction(txn.hash);
 
-            balance = 0;
+    //         balance = 0;
             
-        } else {
-            window.alert("You cannot unstake more tokens than you have staked...");
-        }
+    //     } else {
+    //         window.alert("You cannot unstake more tokens than you have staked...");
+    //     }
         
-    }
+    // }
 
     const pollTransaction = async (txnHash) => {
-        // setTxnPending("Pending transaction...");
-        let txn = await provider.getTransactionReceipt(txnHash);
-        let time = 0;
-        setApproveOrStake(<span className='justify-center flex'>                
-        <Loader.Oval className='' type="Circles" color="#00BFFF" height={30} width={30}/>
-    </span>);
-    
+        try{
+            let txn = await provider.getTransactionReceipt(txnHash);
+            let time = 0;
+            setApproveOrStake(<span className='justify-center flex'>                
+            <Loader.Oval className='' type="Circles" color="#00BFFF" height={30} width={30}/>
+            </span>);
+        
 
-        while (txn == null && time < 30){
-            await new Promise(r => setTimeout(r, 2000));
-            txn = await provider.getTransactionReceipt(txnHash);
-            time += 1;
-            
+            while (txn == null && time < 30){
+                await new Promise(r => setTimeout(r, 2000));
+                txn = await provider.getTransactionReceipt(txnHash);
+                time += 1;
+                
+            }
+            if (time == 30){
+                setTxnPending("Time out error, check your transaction to make sure it went through");
+            } else {
+                setTxnPending("txn complete");
+            }
+            setTxnComplete(txnHash);
+            stakeStateHandler();
+        } catch (e) {   
+            setOpenModal(true);
+            setErrorMessage(e);
         }
-        if (time == 30){
-            setTxnPending("Time out error, check your transaction to make sure it went through");
-        } else {
-            setTxnPending("txn complete");
-        }
-        setTxnComplete(txnHash);
-        stakeStateHandler();
+        
 
         
     }
@@ -310,6 +356,7 @@ const Interactions = (props) => {
             
             <div className='px-10'>
                 {/* {txnPending} */}
+                
 
 
             </div>

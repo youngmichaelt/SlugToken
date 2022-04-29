@@ -32,7 +32,11 @@ const EventTable = (props) => {
         // rows.push(headers)
 
         if (events instanceof Array && events.length > 0){
-            for (let i = 0; i<events.length; i++){
+            for (let i = events.length-1; i > -1; i--){
+
+                if (i == events.length-10){
+                    break;
+                }
                 let block = await provider.getBlock(events[i].blockNumber);
                 let timestamp = block.timestamp;
                 let date = new Date(timestamp*1000)

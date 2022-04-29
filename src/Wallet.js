@@ -24,6 +24,7 @@ const Wallet = () => {
     const [contract, setContract] = useState(null);
 
     const [modalOpen, setModalOpen] = useState();
+    const [ethersUpdated, setEthersUpdated] = useState(false);
 
     
     const checkIfWalletIsConnected = async () => {
@@ -38,8 +39,8 @@ const Wallet = () => {
             }
       
             const accounts = await ethereum.request({method: 'eth_accounts'});
-            console.log(accounts[0])
-            if(accounts !== 0){
+            // console.log(accounts)
+            if(accounts.length != 0){
                 // if(accounts[0] != defaultAccount){
                 //     setConnButtonText('Not Connected');
                 // } else {
@@ -58,6 +59,8 @@ const Wallet = () => {
             }
           } catch(error){
             console.log(error);
+            setErrorMessage(error);
+            setModalOpen(true);
           }
     }
 
@@ -71,6 +74,7 @@ const Wallet = () => {
                 setConnButtonText('Connected');
             })
             .catch(error => {
+                console.log(error)
                 setErrorMessage(error.message);
                 setModalOpen(true);
             })
@@ -89,6 +93,7 @@ const Wallet = () => {
     }
 
     const updateEthers = () => {
+       
         let tempProvider = new ethers.providers.Web3Provider(window.ethereum);
 
         let tempSigner = tempProvider.getSigner();
@@ -148,7 +153,10 @@ const Wallet = () => {
      let props = {
          contract: contract,
          defaultAccount: defaultAccount,
-         provider: provider
+         provider: provider,
+         setOpenModal: (x) => {setModalOpen(x)},
+         setErrorMessage: (x) => {setErrorMessage(x)},
+
      }
 
      let modal_props = {
@@ -157,6 +165,7 @@ const Wallet = () => {
         provider: provider,
         setOpenModal: (x) => {setModalOpen(x)},
         ErrorMessage: errorMessage
+        
      }
 
     return (
@@ -205,7 +214,7 @@ const Wallet = () => {
 
             
             
-            <p>{errorMessage}</p>
+            {/* <p>{errorMessage}</p> */}
         </div>
 
     </div>
