@@ -3,8 +3,8 @@ html, body {
 
 }
   
-ul.menu {
-  position: absolute;
+ul {
+  /* position: absolute; */
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -28,11 +28,48 @@ button.hamburger {
   margin: 2px;
   background-color: grey;
 }
+
+#navButton {
+  display: none;
+  /* padding: 10px;
+  margin: 2px; */
+  /* background-color: grey; */
+}
+
+button {
+  padding: 10px;
+  margin: 2px;
+  /* background-color: grey; */
+}
+
+h2 {
+  padding: 10px;
+  margin: 2px;
+  /* background-color: grey; */
+}
+
+
+
+/* .wrapper {
+  display: flex;
+  transition: margin .5s;
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(100%);
+  
+
+} */
   
 @media screen and (max-width : 760px) {
-    ul.menu {
+    ul {
         flex-direction: column;
-        display: none;
+        display: flex;
+        width: 100vw;
+        height: 80vh;
+        /* transition: transform 0.3s ease-in-out;
+        transform: translateX(0); */
+        /* top: 0;
+        right: 0;
+        position: relative; */
     }
     
     
@@ -40,16 +77,39 @@ button.hamburger {
     background-color: orange;
 
   }
+  /* button  {
+    display: flex;
+    top:0;
+    left:10px; 
+    position: relative;
+  } */
 
-  button.hamburger {
+  #navButton {
+    display: flex;
+    /* padding: 10px;
+    margin: 2px; */
+    /* background-color: grey; */
+  }
+
+  /* .wrapper {
+    display: flex;
+    
+    width: 100vw;
+    height: 100vh;
+    
+
+  } */
+
+  /* button.hamburger {
     display: block;
     position: absolute;
-  }
+  } */
     
   
-  button.hamburger:focus + ul.menu {
-    display: flex
+  /* button.hamburger:focus + ul.menu {
+    display: flex;
+    position: absolute
 
-  }
+  } */
 }
   

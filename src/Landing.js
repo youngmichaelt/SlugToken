@@ -4,9 +4,17 @@ import NavBar from './NavBar';
 
 const Landing = () => {
     return (
-        <div>
-            <p>Land ing page</p>
-            <NavBar/>
+        <div className=''>
+            
+            <div className=''>
+                    
+
+                <div className='justify-end flex'>
+                    <NavBar className=''/>
+                </div>
+
+                
+            </div>
         </div>
 
         
