@@ -1,5 +1,6 @@
 pragma solidity ^0.8.0;
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol";
+// import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract Slug is ERC20 {
 
@@ -14,6 +15,8 @@ contract Slug is ERC20 {
     uint256 public stakedTokensAmount = 0;
     uint256 public minStake = 10;
     uint256 private totalTransactions = 0;
+
+    event TaxCollected (address indexed to, uint256 indexed amount);
 
     constructor() ERC20("SlugToken", "SLUG"){
         _mint(msg.sender,1000*10**18);
@@ -33,6 +36,7 @@ contract Slug is ERC20 {
         _transfer(from, to, amount);
         address random = getRandomStaker();
         _transfer(from, random, tax);
+        emit TaxCollected(random, tax);
 
         return true;
     }
@@ -44,6 +48,7 @@ contract Slug is ERC20 {
         _transfer(owner, to, amount);
         address random = getRandomStaker();
         _transfer(owner, random, tax);
+        emit TaxCollected(random, tax);
         return true;
     }
 
@@ -82,7 +87,7 @@ contract Slug is ERC20 {
 
         transferFromWithoutTax(msg.sender, address(this), amount);
 
-        stakedTokens[msg.sender] = amount;
+        stakedTokens[msg.sender] += amount;
         //balances[msg.sender] -= amount;
         stakedTokensAmount += amount;
         bool newlyeligible = false;

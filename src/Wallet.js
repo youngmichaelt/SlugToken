@@ -38,8 +38,8 @@ const Wallet = () => {
             //   detailsOn();
             }
       
-            const accounts = await ethereum.request({method: 'eth_accounts'});
-            // console.log(accounts)
+            const accounts = await ethereum.request({method: 'eth_requestAccounts'});
+            console.log(accounts)
             if(accounts.length != 0){
                 // if(accounts[0] != defaultAccount){
                 //     setConnButtonText('Not Connected');
@@ -88,7 +88,11 @@ const Wallet = () => {
 
     const accountChangedHandler = (newAddress) =>
     {
-        setDefaultAccount(newAddress);
+        if (newAddress instanceof Array){
+        setDefaultAccount(newAddress[0]);
+        } else {
+            setDefaultAccount(newAddress);
+        }
         updateEthers();
     }
 
@@ -108,6 +112,8 @@ const Wallet = () => {
     
 
     
+
+    
     const chainChangedHandler = () => {
 		// reload the page to avoid any errors with chain change mid use of application
 		window.location.reload();
@@ -117,6 +123,7 @@ const Wallet = () => {
         window.ethereum.on('accountsChanged', accountChangedHandler);
 
         window.ethereum.on('chainChanged', chainChangedHandler);
+
     }
 	
 
@@ -202,14 +209,14 @@ const Wallet = () => {
                 {/* <EventTable contract={props}/> */}
             </div>
 
-            <button
+            {/* <button
         className="openModalBtn"
         onClick={() => {
           setModalOpen(true);
         }}
       >
         ERROR TEST
-      </button>
+      </button> */}
           
 
             

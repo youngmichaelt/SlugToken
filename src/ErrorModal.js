@@ -24,11 +24,11 @@ const ErrorModal = (props) => {
                 <h1>Error</h1>
                 <hr/>
                 </div>
-                <div className="body mt-3 mb-3">
-                <p>{(ErrorMessage).toString()}</p>
+                <div className="body mt-3 mb-3 max-w-[700px]">
+                <p className='max-w-[700px]'>{(ErrorMessage).toString()}</p>
                 </div>
                 <div className="footer mt-4">
-                <button
+                <button className='rounded-3xl bg-indigo-300 w-16 hover:bg-indigo-500'
                     onClick={() => {
                     setOpenModal(false);
                     }}

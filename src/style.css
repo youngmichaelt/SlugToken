@@ -1,0 +1,55 @@
+html, body {
+    height: 100%
+
+}
+  
+ul.menu {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+  
+li.menuItem {
+  flex: 1 0 auto;
+  padding: 10px;
+  margin: 2px;
+  background-color: grey;
+  text-align: center;
+}
+  
+li.menuItem:hover {
+  background-color: blue;
+}
+  
+button.hamburger {
+  display: none;
+  padding: 10px;
+  margin: 2px;
+  background-color: grey;
+}
+  
+@media screen and (max-width : 760px) {
+    ul.menu {
+        flex-direction: column;
+        display: none;
+    }
+    
+    
+  li.menuItem {
+    background-color: orange;
+
+  }
+
+  button.hamburger {
+    display: block;
+    position: absolute;
+  }
+    
+  
+  button.hamburger:focus + ul.menu {
+    display: flex
+
+  }
+}
+  

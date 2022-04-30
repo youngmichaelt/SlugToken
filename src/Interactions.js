@@ -142,6 +142,7 @@ const Interactions = (props) => {
 
     const stakeHandler = async (e) => {
         e.preventDefault();
+        console.log(defaultAccount);
 
         try {
             if (stakeState == "Unstake"){
@@ -155,6 +156,7 @@ const Interactions = (props) => {
                     setTxnHash("Unstake transaction confirmation hash: " + txn.hash);
     
                     pollTransaction(txn.hash);
+                    // setStakeAmount(0);
     
                     // let balance = 0;
                     
@@ -164,29 +166,41 @@ const Interactions = (props) => {
             } else {
                 let contractAddress = await contract.address;
                
-                let stakeAmount = parseInt(stakeAmountState);
+                let stakeAmount = parseFloat(stakeAmountState);
                 let stakeAmountBig = ethers.utils.parseUnits(stakeAmountState, 18);
                 // let allowanceBig = ethers.utils.parseUnits(allowance.toString());
-                console.log(parseInt(allowance),selfAllowance, parseInt(ethers.utils.formatUnits(stakeAmountBig,0)), stakeAmount)
-    
-                if (stakeAmount <= parseInt(allowance) && stakeAmount <= parseInt(selfAllowance)){
-    
-                    let txn = await contract.stakeToken(stakeAmountBig);
-                    console.log(txn);
-                    setTxnHash("Stake transaction confirmation hash: " + txn.hash);
-                    pollTransaction(txn.hash);
-    
+                console.log(parseFloat(allowance),selfAllowance, parseFloat(ethers.utils.formatUnits(stakeAmountBig,0)), stakeAmount)
+                if (stakeAmount > balance){
+                    window.alert("You do not have enough tokens...");
                 } else {
-                    let approveSelftxn = await contract.approve(defaultAccount, stakeAmountBig);
-                    let txn = await contract.approve(contractAddress, stakeAmountBig);
-                    console.log(txn);
-                    setTxnHash("Approval transaction confirmation hash: " + txn.hash);
-                    pollTransaction(txn.hash);
+                    if (stakeAmount <= parseFloat(allowance) && stakeAmount <= parseFloat(selfAllowance)){
+    
+                        let txn = await contract.stakeToken(stakeAmountBig);
+                        console.log(txn);
+                        setTxnHash("Stake transaction confirmation hash: " + txn.hash);
+                        pollTransaction(txn.hash);
+                        // setStakeAmount(0);
+        
+                    } else {
+                        let approveSelftxn = await contract.approve(defaultAccount, stakeAmountBig);
+                        let txn = await contract.approve(contractAddress, stakeAmountBig);
+                        console.log(txn);
+                        setTxnHash("Approval transaction confirmation hash: " + txn.hash);
+                        pollTransaction(txn.hash);
+                    }
                 }
+                
             }
         } catch (e) {   
             setOpenModal(true);
-            setErrorMessage(e);
+
+            if (typeof e === 'object'){
+                setErrorMessage(e.message);
+            } else {
+                console.log(e);
+                setErrorMessage(e);
+            }
+            
         }
 
         
@@ -234,6 +248,7 @@ const Interactions = (props) => {
             } else {
                 setTxnPending("txn complete");
             }
+            
             setTxnComplete(txnHash);
             stakeStateHandler();
         } catch (e) {   
@@ -265,7 +280,7 @@ const Interactions = (props) => {
 
 		let tokenBalance = balanceNumber / Math.pow(10, 18);
         console.log(2 * Math.pow(10,18))
-        setBalance(tokenBalance.toFixed(3));
+        setBalance(tokenBalance.toFixed(5));
     };
 
     const maxStakeAmountHandler = () => {
