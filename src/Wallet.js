@@ -177,15 +177,19 @@ const Wallet = () => {
 
     return (
     <div>
-        <button id={styles.connectWalletButton} onClick={connectWalletHandler}>{connButtonText}</button>
         <div>
-            <h3 className='pt-5'>Slug Token</h3>
+            <button id={styles.connectWalletButton} onClick={connectWalletHandler}>{connButtonText}</button>
+            <h3 id={styles.header} className=''>Slug Token</h3>
+        </div>
+        
+        <div>
+            
             {/* <div>
                 <h3>Address: {defaultAccount}</h3>
             </div> */}                
 
 
-            <div className='mt-[50px]'>
+            <div className='mt-[50px]' id={styles.container}>
 
                 <div className='flex items-center justify-center mb-7'>
                     

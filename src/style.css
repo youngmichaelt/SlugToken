@@ -36,11 +36,12 @@ button.hamburger {
   /* background-color: grey; */
 }
 
-button {
+.header-button {
   padding: 10px;
   margin: 2px;
-  /* background-color: grey; */
 }
+
+
 
 h2 {
   padding: 10px;

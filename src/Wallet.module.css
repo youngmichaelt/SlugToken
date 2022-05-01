@@ -1,5 +1,23 @@
 #connectWalletButton {
     position: absolute;
-    top: 10px;
+    top: 24px;
     right: 10px;
+}
+
+#header{
+    padding-top: 24px;
+}
+@media screen and (max-width : 760px) {
+
+#header{
+    position: absolute;
+    left: 10px;
+    top:24px;
+    padding-top: 0px;
+    padding-bottom: 10px;
+}
+
+#container {
+    padding-top: 50px;
+}
 }

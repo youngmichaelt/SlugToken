@@ -14,10 +14,10 @@ function App() {
       <script src="../node_modules/flowbite/dist/flowbite.js"></script>
       <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Wallet/>}>
+        <Route path='/stake' element={<Wallet/>}>
           
         </Route>
-        <Route path='/landing' element={<Landing/>}>
+        <Route path='/' element={<Landing/>}>
           
         </Route>
         </Routes>

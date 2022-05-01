@@ -8,9 +8,12 @@ import Hamburger from 'hamburger-react'
 
 const MenuItem = (props) => {
     let text = props.text;
-    return <button onClick={() => {window.alert({text})}} className=' justify-end '>
+    return <a href={'http://localhost:3000/'+text}>
+        <button className=' header-button justify-end '>
         <span className=''>{text}</span>
         </button>
+    </a>
+    
 }
 
 const NavBar = () => {
@@ -51,10 +54,10 @@ const NavBar = () => {
         
     })
 
-    var myMenu = ['Home','Settings','About us', 'Other stuff'];
+    var myMenu = ['Stake','Buy','Community', 'Docs'];
     return (
         <div className='flex p-2 w-screen relative'>
-            <button className='left-0 absolute'>
+            <button className='left-0 absolute header-button'>
                 Slug Token
             </button>
 
@@ -65,12 +68,15 @@ const NavBar = () => {
                 <Hamburger id='navButton' size={20} toggled={open} toggle={() => {openMenu()}} className='justify-end' style={{'display': 'none'}}>X</Hamburger>
 
             </div>
-            <ul className='justify-center' style={{'display': menuOpen}}>
-                    
-                {myMenu.map(item => {
-                return <MenuItem key={item} text={item}/>
-                })}
-            </ul>
+            <div className='bg-white h-screen' style={{'visibility': open ? 'visible' : 'hidden'}}>
+                <ul className='justify-center' style={{'display': menuOpen, 'visibility': 'visible'}}>
+                        
+                        {myMenu.map(item => {
+                        return <MenuItem key={item} text={item}/>
+                        })}
+                    </ul>
+            </div>
+            
             
           </div>
           
