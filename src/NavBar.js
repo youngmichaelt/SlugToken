@@ -8,8 +8,8 @@ import Hamburger from 'hamburger-react'
 
 const MenuItem = (props) => {
     let text = props.text;
-    return <a href={'http://localhost:3000/'+text}>
-        <button className=' header-button justify-end '>
+    return <a href={'http://192.168.1.229:3000/'+text}>
+        <button className=' header-button justify-end bg-white rounded-2xl border  '>
         <span className=''>{text}</span>
         </button>
     </a>
@@ -54,21 +54,21 @@ const NavBar = () => {
         
     })
 
-    var myMenu = ['Stake','Buy','Community', 'Docs'];
+    var myMenu = ['Stake','Buy','Community', 'Docs','Slugmap'];
     return (
-        <div className='flex p-2 w-screen relative'>
-            <button className='left-0 absolute header-button'>
+        <div className='flex w-screen '>
+            <button className='left-0 absolute header-button '>
                 Slug Token
             </button>
 
           <div className='wrapper justify-center right-0 absolute'>
             
-            <div id='navButton' className='justify-end'>
+            <div id='navButton' className='justify-end bg-white rounded-2xl border'>
             
                 <Hamburger id='navButton' size={20} toggled={open} toggle={() => {openMenu()}} className='justify-end' style={{'display': 'none'}}>X</Hamburger>
 
             </div>
-            <div className='bg-white h-screen' style={{'visibility': open ? 'visible' : 'hidden'}}>
+            <div className='bg-white bg-[url("/src/slugp.png")]  h-screen whitescreen' style={{'visibility': open ? 'visible' : 'hidden'}}>
                 <ul className='justify-center' style={{'display': menuOpen, 'visibility': 'visible'}}>
                         
                         {myMenu.map(item => {

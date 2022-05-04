@@ -176,7 +176,7 @@ const Wallet = () => {
      }
 
     return (
-    <div>
+    <div className="bg-[url('/src/slugp.png')] md:bg-cover bg-no-repeat bg-center md:bg-top w-screen h-screen scroll relative">
         <div>
             <button id={styles.connectWalletButton} onClick={connectWalletHandler}>{connButtonText}</button>
             <h3 id={styles.header} className=''>Slug Token</h3>

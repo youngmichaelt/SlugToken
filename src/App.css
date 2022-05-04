@@ -1,5 +1,11 @@
+@font-face {
+  font-family: pxl;
+  src: url(./fonts/slkscr.ttf);
+}
+
 .App {
   text-align: center;
+  font-family: pxl;
 }
 
 .App-logo {
