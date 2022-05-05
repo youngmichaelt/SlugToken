@@ -48,12 +48,12 @@ const EventTable = (props) => {
                 
                 
                 console.log(events[i]);
-                let row = <tr className='table-fixed' key={i}>
+                let row = <tr className='' key={i}>
                     <td className='pt-3'>{date.toDateString()}</td>
-                    <td className=' pl-10 max-w-[300px] truncate ... pt-3'>
+                    <td className=' xl:pl-10 lg:pl-10 md:pl-10 sm:pl-10 xl:max-w-[300px] lg:max-w-[300px] md:max-w-[300px] sm:max-w-[300px] max-w-[150px] truncate ... pt-3'>
                         <a className='' href={'https://rinkeby.etherscan.io/tx/'+events[i].transactionHash}>{events[i].transactionHash}</a>
                     </td>
-                    <td className='pl-10 pr-10 min-w-min pt-3'>{fixedNum}</td>
+                    <td className='xl:pl-10 lg:pl-10 md:pl-10 sm:pl-10 xl:pr-10 lg:pr-10 md:pr-10 sm:pr-10 min-w-min pt-3'>{fixedNum}</td>
                     
                 </tr>
                 // headers += row;
@@ -73,14 +73,14 @@ const EventTable = (props) => {
     },[contract, defaultAccount])
 
     return (
-        <div className='p-4 bg-white mx-20 rounded-xl border border-gray-200 font-mono'>
+        <div className='p-4 bg-white  rounded-xl border border-gray-200 xl:mx-32 lg:mx-20 md:mx-20 sm:mx-5 mx-3 '>
             
-            <table className='flex justify-center table-fixed' id={styles.eventtable}>
-                <tbody className='px-10 table-fixed'>
+            <table className='flex justify-center table-fixed ' id={styles.eventtable}>
+                <tbody className=' table-fixed '>
                 <tr className='table-fixed' key='10000'>
-                    <th className='px-10'>Timestamp</th>
-                    <th className='px-10'>Transaction Hash</th>
-                    <th className='px-10'>Amount</th>
+                    <th className='xl:px-10 lg:px-10 md:px-10 sm:px-10 px-3'>Timestamp</th>
+                    <th className='xl:px-10 lg:px-10 md:px-10 sm:px-10 px-3'>Txn Hash</th>
+                    <th className='xl:px-10 lg:px-10 md:px-10 sm:px-10 px-3'>Amount</th>
                     
                 </tr>
                     {Event}

@@ -8,6 +8,10 @@ import ErrorModal from './ErrorModal';
 import token_abi from './contracts/abi.json'
 
 import EventTable from './EventTable';
+// import NavBar from './NavBar';
+import NavBar from './NavBar-app.js';
+
+
 
 const Wallet = () => {
 
@@ -176,11 +180,18 @@ const Wallet = () => {
      }
 
     return (
-    <div className="bg-[url('/src/slugp.png')] md:bg-cover bg-no-repeat bg-center md:bg-top w-screen h-screen scroll relative">
-        <div>
-            <button id={styles.connectWalletButton} onClick={connectWalletHandler}>{connButtonText}</button>
-            <h3 id={styles.header} className=''>Slug Token</h3>
+    <div className="bg-[url('/src/slugp.png')] md:bg-cover bg-no-repeat bg-center md:bg-top w-screen h-screen scroll   ">
+        {/* <div className='justify-end flex '>
+                    <NavBar className=''/>
+                    
+        </div> */}
+        <div className=' '>
+            <NavBar className=''/>
+            <button id={styles.connectWalletButtton} onClick={connectWalletHandler}>{connButtonText}</button>
+            {/* <h3 id={styles.header} className=''>Slug Token</h3> */}
         </div>
+
+        
         
         <div>
             
@@ -189,9 +200,9 @@ const Wallet = () => {
             </div> */}                
 
 
-            <div className='mt-[50px]' id={styles.container}>
-
-                <div className='flex items-center justify-center mb-7'>
+            <div className='xl:mt-[75px] lg:mt-[75px]  md:mt-[75px]  sm:mt-[50px] mt-[50px] xl:text-xl lg:text-xl md:text-xl sm:text-xl text-xl ' id={styles.container}>
+                
+                <div className='flex items-center justify-center mb-7 '>
                     
                 <Interactions contract={props}/>
                 </div>
@@ -200,12 +211,12 @@ const Wallet = () => {
 
                 </div>
 
-
                 <hr className='my-10'/>
                 <h3 className='mb-5'>Recent Taxes Collected</h3>
-                <div className='mt-2 mb-[150px] flex items-center justify-center'>
+                <div className='mt-2 mb-[150px] flex items-center justify-center '>
                 <EventTable contract={props}/>
                 </div>
+                
                 
 
 

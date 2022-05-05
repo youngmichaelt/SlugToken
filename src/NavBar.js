@@ -44,6 +44,7 @@ const NavBar = () => {
             // setMenuTransform('translateX(-120%)');
         } else {
             setMenuOpen('flex');
+            setOpen(false);
             // setMenuTransform('translateX(0)')
         }
     }
@@ -63,7 +64,7 @@ const NavBar = () => {
 
           <div className='wrapper justify-center right-0 absolute'>
             
-            <div id='navButton' className='justify-end bg-white rounded-2xl border'>
+            <div id='navButton' className='justify-end bg-white rounded-2xl border absolute right-0'>
             
                 <Hamburger id='navButton' size={20} toggled={open} toggle={() => {openMenu()}} className='justify-end' style={{'display': 'none'}}>X</Hamburger>
 

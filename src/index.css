@@ -21,4 +21,11 @@ code {
 .scroll {
   max-height: 100vh;
   overflow-y: scroll;
+  /* overflow-x: scroll; */
+}
+.pixel-border {
+  box-shadow:   -5px 0 0 0 black,
+                 5px 0 0 0 black,
+                 0 -5px 0 0 black,
+                 0 5px 0 0 black;
 }

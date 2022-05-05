@@ -1,6 +1,5 @@
 html, body {
     height: 100%
-
 }
   
 ul {
@@ -72,8 +71,8 @@ h2 {
     ul {
         flex-direction: column;
         display: flex;
-        width: 100vw;
-        height: 80vh;
+        /* width: 100vw; */
+        /* height: 80vh; */
         /* transition: transform 0.3s ease-in-out;
         transform: translateX(0); */
         /* top: 0;
@@ -95,9 +94,15 @@ h2 {
 
   #navButton {
     display: flex;
+    margin-right: 1.5rem;
     /* padding: 10px;
     margin: 2px; */
     /* background-color: grey; */
+  }
+
+  .button-container {
+    margin-top:3.5rem;
+    margin-right: 1.5rem;
   }
 
   /* .wrapper {
@@ -120,5 +125,15 @@ h2 {
     position: absolute
 
   } */
+}
+
+@media screen and (max-width : 450px) {
+  #navButton {
+    display: flex;
+    margin-right: .5rem;
+    /* padding: 10px;
+    margin: 2px; */
+    /* background-color: grey; */
+  }
 }
   

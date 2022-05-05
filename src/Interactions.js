@@ -307,20 +307,20 @@ const Interactions = (props) => {
     //contract, defaultAccount, txnPending, stakeState]
 
     return (
-        <div className='p-4 bg-white mx-20 rounded-3xl border border-gray-200 shadow-md sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700 font-mono'>
+        <div className=' pt-4 bg-white rounded-3xl border border-gray-200 shadow-md sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700 '>
             <div className=''>
                 <button className='mx-5 mb-5 px-4 py-2 bg-indigo-300 hover:bg-indigo-400 rounded-2xl text-center' onClick={() => setStakeState("Stake")}>
-                    <span>Stake</span>
+                    <span className=''>Stake</span>
                 </button>
                 <button className='mx-5 mb-5 px-4 py-2 bg-indigo-300 hover:bg-indigo-400 rounded-2xl text-center' onClick={() => setStakeState("Unstake")}>
                     <span>Unstake</span>
                 </button>
                 <hr className='pb-5'></hr>
             </div>
-            <div id='stake-detail' className=''>
-                <div id='amount' className='bg-indigo-400 rounded-3xl px-5 py-10 relative'>
+            <div id='stake-detail' className='mx-3'>
+                <div id='amount' className='bg-indigo-400 rounded-3xl px-3 py-10 '>
                         <div className='px-15 mb-2 text-left text-black'>Amount</div>
-                        <div className='flex'>
+                        <div className='flex md:mx-5'>
                             {/* <form className='flex' onSubmit={stakeHandler}> */}
                             <div className='ml-10 mr-4'>
                                 <input className='rounded-xl' onChange= {(e) => {setStakeAmount(e.target.value);approveStakeHandler(e.target.value)}} id='stakeAmount' type='number' min='0' step='0.001' placeholder='0' value={stakeAmountState}></input>
@@ -344,7 +344,7 @@ const Interactions = (props) => {
                 </form> */}
             </div>
 
-            <div className='mt-10 mb-10 mr-3 ml-3'>
+            <div className='mt-10 mb-10 mr-3 ml-3  '>
                     <div className='flex pb-10 relative'>
                         <p className='left-0 absolute'>Balance: </p>
                         <p className='right-0 absolute'>{balance}</p>
@@ -353,7 +353,7 @@ const Interactions = (props) => {
                         <p className='left-0 absolute' >Staked balance: </p>
                         <p className='right-0 absolute' >{stakeBalance}</p>
                     </div>
-                </div>
+            </div>
                 {/* <button type='submit' onClick={stakeHandler}>{ApproveOrStake}</button> */}
                 {/* <form onSubmit={stakeHandler}>
                     <h3>Stake tokens </h3>
@@ -363,7 +363,7 @@ const Interactions = (props) => {
                 {/* </form> */}
                 
 
-                <button disabled={stakeAmountState==0 || stakeAmountState == null} className='rounded-3xl bg-indigo-300 disabled:bg-indigo-100 active:bg-violet-700 hover:bg-indigo-400 w-96 py-3' type='submit' onClick={stakeHandler}>
+                <button disabled={stakeAmountState==0 || stakeAmountState == null} className='rounded-3xl bg-indigo-300 disabled:bg-indigo-100 active:bg-violet-700 hover:bg-indigo-400 xl:w-96 lg:w-96 md:w-96 sm:w-96 w-80 py-3 my-5' type='submit' onClick={stakeHandler}>
                     
                 {ApproveOrStake}
                 </button>
