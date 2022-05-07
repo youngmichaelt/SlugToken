@@ -16,7 +16,7 @@ const MenuItem = (props) => {
         Docs: "",
         Slugmap: ""
     }
-    let url = window.location.origin;
+    let url = window.location.origin + "/";
     return <a href={url+pathDict[text]}>
         <button className=' header-button justify-center  bg-white border hover:bg-gray-300  '>
         <span className=''>{text}</span>
