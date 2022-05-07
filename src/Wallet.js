@@ -5,7 +5,7 @@ import styles from './Wallet.module.css'
 // import simple_token_abi from './Contracts/simple_token_abi.json'
 import Interactions from './Interactions';
 import ErrorModal from './ErrorModal';
-import token_abi from './contracts/abi.json'
+import token_abi from './contracts/abi2.json'
 
 import EventTable from './EventTable';
 // import NavBar from './NavBar';
@@ -15,7 +15,8 @@ import NavBar from './NavBar-app.js';
 
 const Wallet = () => {
 
-    const contractAddress = "0x290Aa71b3e2A0ce00CeD0b2178985114a66B8e36";
+    // const contractAddress = "0x290Aa71b3e2A0ce00CeD0b2178985114a66B8e36";
+    const contractAddress = "0xF8f1fA3C1061fB75f8070c9991d6364dF295b0B6";
 
     const [tokenName, setTokenName] = useState("Token");
     const [connButtonText, setConnButtonText] = useState("Connect Wallet");

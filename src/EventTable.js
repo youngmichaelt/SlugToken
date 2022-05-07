@@ -18,7 +18,7 @@ const EventTable = (props) => {
         let filter = contract.filters.TaxCollected(defaultAccount)
 
         let events = await contract.queryFilter(filter);
-        // console.log(events[0].args);
+        console.log(events);
 
         let rows = []
 

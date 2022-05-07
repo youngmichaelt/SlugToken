@@ -55,7 +55,7 @@ const Interactions = (props) => {
                 let selfAllowanceBalance = selfAllowance * Math.pow(10, 18);
                 setSelfAllowance(ethers.utils.formatUnits(selfAllowance,18));
 
-                if (allowanceBalance > 0 && selfAllowanceBalance > 0){
+                if (allowanceBalance > 0 || selfAllowanceBalance > 0){
                     setApproveOrStake("Stake");
                 } else {
                     setApproveOrStake("Approve");
@@ -92,7 +92,7 @@ const Interactions = (props) => {
                     }
                     
                     let stakeAmount = ethers.utils.formatUnits(stakeAmountBig, 18)
-                    setStakeBalance(stakeAmount);
+                    setStakeBalance(parseFloat(stakeAmount).toFixed(5));
                 } else {
                     setStakeBalance(0);
                 }
@@ -126,7 +126,7 @@ const Interactions = (props) => {
 
         let stakeAmount = e;
         if (stakeState != "Unstake"){
-            if (stakeAmount <= parseInt(allowance) && stakeAmount <= parseInt(selfAllowance)){
+            if (stakeAmount <= parseInt(allowance) || stakeAmount <= parseInt(selfAllowance)){
                 setApproveOrStake("Stake");
             }
             else if (stakeAmount == 0){
@@ -149,7 +149,7 @@ const Interactions = (props) => {
         try {
             if (stakeState == "Unstake"){
                 let contractAddress = await contract.address;
-                let unstakeAmount = parseInt(stakeAmountState);
+                let unstakeAmount = parseInt(stakeAmountState)-.000001;
                 let unstakeAmountBig = ethers.utils.parseUnits(stakeAmountState, 18);
     
                 if (stakeBalance > unstakeAmount){
@@ -175,7 +175,7 @@ const Interactions = (props) => {
                 if (stakeAmount > balance){
                     window.alert("You do not have enough tokens...");
                 } else {
-                    if (stakeAmount <= parseFloat(allowance) && stakeAmount <= parseFloat(selfAllowance)){
+                    if (stakeAmount <= parseFloat(allowance) || stakeAmount <= parseFloat(selfAllowance)){
     
                         let txn = await contract.stakeToken(stakeAmountBig);
                         console.log(txn);
@@ -184,7 +184,7 @@ const Interactions = (props) => {
                         // setStakeAmount(0);
         
                     } else {
-                        let approveSelftxn = await contract.approve(defaultAccount, stakeAmountBig);
+                        // let approveSelftxn = await contract.approve(defaultAccount, stakeAmountBig);
                         let txn = await contract.approve(contractAddress, stakeAmountBig);
                         console.log(txn);
                         setTxnHash("Approval transaction confirmation hash: " + txn.hash);
@@ -234,6 +234,7 @@ const Interactions = (props) => {
         try{
             let txn = await provider.getTransactionReceipt(txnHash);
             let time = 0;
+            let appOrStake = ApproveOrStake;
             setApproveOrStake(<span className='justify-center flex'>                
             <Loader.Oval className='' type="Circles" color="#000000" height={30} width={30}/>
             </span>);
@@ -250,7 +251,11 @@ const Interactions = (props) => {
             } else {
                 setTxnPending("txn complete");
             }
-            
+            if (stakeState == "Unstake"){
+                setStakeAmount('');
+            } else if (appOrStake == "Stake"){
+                setStakeAmount('');
+            }
             setTxnComplete(txnHash);
             stakeStateHandler();
         } catch (e) {   
