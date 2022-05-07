@@ -71,9 +71,10 @@ const Landing = () => {
                         <h5 className='lg:text-2xl md:text-2xl sm:text-2xl text-2xl'>
                             Buy on Quickswap
                         </h5>
-                        <h3 className=' pt-4 px-5 lg:text-lg md:text-lg sm:text-lg text-md'>
-                            LINK
-                        </h3>
+                        <button className=' pt-4 px-5 lg:text-lg md:text-lg sm:text-lg text-md'>
+                            
+                            <img src={require('./quickswap.png')} className='  bg-no-repeat bg-center w-16'/>
+                        </button>
                         
                     </div>
 
@@ -81,9 +82,9 @@ const Landing = () => {
                         <h5 className='lg:text-2xl md:text-2xl sm:text-2xl text-2xl'>
                             Join the Community!
                         </h5>
-                        <h3 className=' pt-4 px-5 lg:text-lg md:text-lg sm:text-lg text-md'>
-                            DISCORD
-                        </h3>
+                        <button className=' pt-4 px-5 lg:text-lg md:text-lg sm:text-lg text-md'>
+                            <img src={require('./discord.png')} className='  bg-no-repeat bg-center w-16'/>
+                        </button>
                         
                     </div>
 
@@ -91,9 +92,9 @@ const Landing = () => {
                         <h5 className='lg:text-2xl md:text-2xl sm:text-2xl text-2xl'>
                             Roadmap
                         </h5>
-                        <h3 className=' pt-4 px-5 lg:text-lg md:text-lg sm:text-lg text-md'>
-                            Check out our Slugmap!
-                        </h3>
+                        <button className=' pt-4 px-5 lg:text-lg md:text-lg sm:text-lg text-md'>
+                            <img src={require('./map-icon.png')} className='  bg-no-repeat bg-center w-16'/>
+                        </button>
                         
                     </div>
 
