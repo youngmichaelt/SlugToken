@@ -39,7 +39,9 @@ const EventTable = (props) => {
                 }
                 let block = await provider.getBlock(events[i].blockNumber);
                 let timestamp = block.timestamp;
-                let date = new Date(timestamp*1000)
+                let date = new Date(timestamp*1000);
+                // date = date.toISOString().replace(/T/, ' ').replace(/\..+/, '');
+                date = date.toLocaleString();
 
                 let num = ethers.utils.formatUnits(events[i].args[1], 18)
                 // console.log(num)
@@ -49,7 +51,7 @@ const EventTable = (props) => {
                 
                 console.log(events[i]);
                 let row = <tr className='' key={i}>
-                    <td className='pt-3'>{date.toDateString()}</td>
+                    <td className='pt-3'>{date}</td>
                     <td className=' xl:pl-10 lg:pl-10 md:pl-10 sm:pl-10 xl:max-w-[300px] lg:max-w-[300px] md:max-w-[300px] sm:max-w-[300px] max-w-[150px] truncate ... pt-3'>
                         <a className='' href={'https://rinkeby.etherscan.io/tx/'+events[i].transactionHash}>{events[i].transactionHash}</a>
                     </td>
