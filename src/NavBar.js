@@ -8,8 +8,15 @@ import Hamburger from 'hamburger-react'
 
 const MenuItem = (props) => {
     let text = props.text;
-    return <a href={'http://192.168.1.229:3000/'+text}>
-        <button className=' header-button justify-end bg-white rounded-2xl border  '>
+    let pathDict = {
+        Stake: "Stake",
+        Buy: "",
+        Community: "",
+        Docs: "",
+        Slugmap: ""
+    }
+    return <a href={window.location.href+pathDict[text]} className=' '>
+        <button className=' header-button justify-center bg-white border hover:bg-gray-300 '>
         <span className=''>{text}</span>
         </button>
     </a>
@@ -39,6 +46,7 @@ const NavBar = () => {
     }
 
     const handleResize = () => {
+        console.log('called')
         if (window.innerWidth < 760){
             setMenuOpen('none');
             // setMenuTransform('translateX(-120%)');
@@ -51,6 +59,7 @@ const NavBar = () => {
     window.addEventListener("resize", handleResize);
     window.addEventListener("load", handleResize);
 
+
     useEffect(() => {
         
     })
@@ -58,19 +67,19 @@ const NavBar = () => {
     var myMenu = ['Stake','Buy','Community', 'Docs','Slugmap'];
     return (
         <div className='flex w-screen '>
-            <button className='left-0 absolute header-button '>
+            {/* <button className='left-0 absolute header-button '>
                 Slug Token
-            </button>
+            </button> */}
 
-          <div className='wrapper justify-center right-0 absolute'>
+          <div className='wrapper justify-center absolute right-0 mt-2 '>
             
-            <div id='navButton' className='justify-end bg-white rounded-2xl border absolute right-0'>
+            <div id='navButtonLanding' className='justify-end bg-white  border absolute right-0 hover:bg-gray-300'>
             
-                <Hamburger id='navButton' size={20} toggled={open} toggle={() => {openMenu()}} className='justify-end' style={{'display': 'none'}}>X</Hamburger>
+                <Hamburger id='' size={20} toggled={open} toggle={() => {openMenu()}} className='justify-end' style={{'display': 'none'}}>X</Hamburger>
 
             </div>
-            <div className='bg-white bg-[url("/src/slugp.png")]  h-screen whitescreen' style={{'visibility': open ? 'visible' : 'hidden'}}>
-                <ul className='justify-center' style={{'display': menuOpen, 'visibility': 'visible'}}>
+            <div className='bg-white bgf-[url("/src/slugp.png")] ml-20 pixel-border border button-container ' style={{'visibility': open ? 'visible' : 'hidden'}}>
+                <ul className='justify-center ' style={{'display': menuOpen, 'visibility': 'visible'}}>
                         
                         {myMenu.map(item => {
                         return <MenuItem key={item} text={item}/>

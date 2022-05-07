@@ -10,7 +10,7 @@ import { createBrowserHistory } from 'history';
 function App() {
   return (
     
-    <div className="App">
+    <div className="App ">
       <script src="../node_modules/flowbite/dist/flowbite.js"></script>
       <BrowserRouter>
       <Routes>

@@ -25,6 +25,7 @@ const Interactions = (props) => {
 
     const [maxStakeAmount, setMaxStakeAmount] = useState(null);
 
+
     
 
     let contract = props.contract.contract;
@@ -32,6 +33,7 @@ const Interactions = (props) => {
     let provider = props.contract.provider;
     let setOpenModal = props.contract.setOpenModal;
     let setErrorMessage = props.contract.setErrorMessage;
+    let network = props.contract.network;
 
     
 
@@ -233,7 +235,7 @@ const Interactions = (props) => {
             let txn = await provider.getTransactionReceipt(txnHash);
             let time = 0;
             setApproveOrStake(<span className='justify-center flex'>                
-            <Loader.Oval className='' type="Circles" color="#00BFFF" height={30} width={30}/>
+            <Loader.Oval className='' type="Circles" color="#000000" height={30} width={30}/>
             </span>);
         
 
@@ -293,39 +295,53 @@ const Interactions = (props) => {
         
     }
 
+   
+
     useEffect(() =>{
-        if (contract != null){
-            updateBalance();
-            updateTokenName();
-            // approveOrStake();
-            stakeStateHandler();
-            getStakeBalance();
+        
+        
+        if (contract != null){  
+
+            
+
+            if (network == 'rinkeby') {
+                updateBalance();
+                updateTokenName();
+                // approveOrStake();
+                stakeStateHandler();
+                getStakeBalance();
+            } else if (network != null){
+                setOpenModal(true);
+                setErrorMessage("Wrong network");
+            }
+            
+            
         } else {
             setApproveOrStake("Approve");
         }
-    },[contract, defaultAccount, stakeState, txnComplete])
+    },[contract, defaultAccount, stakeState, txnComplete, network])
     //contract, defaultAccount, txnPending, stakeState]
 
     return (
-        <div className=' pt-4 bg-white rounded-3xl border border-gray-200 shadow-md sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700 '>
+        <div className=' pt-4 bg-white pixel-border border-gray-200 shadow-md sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700 '>
             <div className=''>
-                <button className='mx-5 mb-5 px-4 py-2 bg-indigo-300 hover:bg-indigo-400 rounded-2xl text-center' onClick={() => setStakeState("Stake")}>
+                <button className='mx-5 mb-5 px-4 py-2 bg-lime-400 hover:bg-lime-600 pixel-border text-center' onClick={() => setStakeState("Stake")}>
                     <span className=''>Stake</span>
                 </button>
-                <button className='mx-5 mb-5 px-4 py-2 bg-indigo-300 hover:bg-indigo-400 rounded-2xl text-center' onClick={() => setStakeState("Unstake")}>
+                <button className='mx-5 mb-5 px-4 py-2 bg-lime-400 hover:bg-lime-600 pixel-border text-center' onClick={() => setStakeState("Unstake")}>
                     <span>Unstake</span>
                 </button>
                 <hr className='pb-5'></hr>
             </div>
             <div id='stake-detail' className='mx-3'>
-                <div id='amount' className='bg-indigo-400 rounded-3xl px-3 py-10 '>
+                <div id='amount' className='bg-lime-500 pixel-border px-3 py-10 '>
                         <div className='px-15 mb-2 text-left text-black'>Amount</div>
-                        <div className='flex md:mx-5'>
+                        <div className='flex md:mx-5 '>
                             {/* <form className='flex' onSubmit={stakeHandler}> */}
                             <div className='ml-10 mr-4'>
-                                <input className='rounded-xl' onChange= {(e) => {setStakeAmount(e.target.value);approveStakeHandler(e.target.value)}} id='stakeAmount' type='number' min='0' step='0.001' placeholder='0' value={stakeAmountState}></input>
+                                <input className='pixel-border xl:text-xl lg:text-xl md:text-xl sm:text-xl' onChange= {(e) => {setStakeAmount(e.target.value);approveStakeHandler(e.target.value)}} id='stakeAmount' type='number' min='0' step='0.001' placeholder='0' value={stakeAmountState}></input>
                             </div>
-                            <button className='rounded-3xl bg-indigo-300 w-16 hover:bg-indigo-500' onClick={(e) => {maxStakeAmountHandler()}}>
+                            <button className='pixel-border bg-lime-200 w-16 hover:bg-lime-600' onClick={(e) => {maxStakeAmountHandler()}}>
                                 <span>Max</span>
                             </button>
                             {/* </form> */}
@@ -363,7 +379,7 @@ const Interactions = (props) => {
                 {/* </form> */}
                 
 
-                <button disabled={stakeAmountState==0 || stakeAmountState == null} className='rounded-3xl bg-indigo-300 disabled:bg-indigo-100 active:bg-violet-700 hover:bg-indigo-400 xl:w-96 lg:w-96 md:w-96 sm:w-96 w-80 py-3 my-5' type='submit' onClick={stakeHandler}>
+                <button disabled={stakeAmountState==0 || stakeAmountState == null} className='pixel-border bg-lime-500 disabled:bg-lime-100 active:bg-lime-500 hover:bg-lime-600 xl:w-96 lg:w-96 md:w-96 sm:w-96 w-80 py-3 my-5' type='submit' onClick={stakeHandler}>
                     
                 {ApproveOrStake}
                 </button>

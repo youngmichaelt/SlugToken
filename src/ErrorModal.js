@@ -4,11 +4,15 @@ const ErrorModal = (props) => {
 
     let setOpenModal = props.setOpenModal.setOpenModal;
     let ErrorMessage = props.setOpenModal.ErrorMessage;
+
+    if (typeof ErrorMessage === 'object'){
+        ErrorMessage = ErrorMessage.message;
+    } 
     
 
 
     return (
-        <div className='p-4 bg-white mx-20 rounded-3xl border border-gray-200 shadow-md sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700'>
+        <div className='p-4 bg-white mx-20 pixel-border border border-gray-200 shadow-md sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700'>
              <div className="modalContainer">
                 <div className="titleCloseBtn">
                 {/* <button
@@ -28,7 +32,7 @@ const ErrorModal = (props) => {
                 <p className='max-w-[700px]'>{(ErrorMessage).toString()}</p>
                 </div>
                 <div className="footer mt-4">
-                <button className='rounded-3xl bg-indigo-300 w-16 hover:bg-indigo-500'
+                <button className='pixel-border border bg-lime-400  hover:bg-lime-600'
                     onClick={() => {
                     setOpenModal(false);
                     }}

@@ -2,9 +2,14 @@ import {React, useState, useEffect} from 'react'
 import {ethers} from 'ethers'
 import NavBar from './NavBar';
 
+
 const Landing = () => {
+
+    let props = {
+        defaultAddress: null
+    }
     return (
-        <div className="bg-[url('/src/slugp.png')] md:bg-cover bg-no-repeat bg-center md:bg-top w-screen h-screen scroll relative">
+        <div className="bg-[url('/src/nocloud.png')] md:bg-cover bg-no-repeat bg-center md:bg-top w-screen h-screen scroll relative">
             
             <div className="justify-center relative  ">
                     
@@ -18,17 +23,13 @@ const Landing = () => {
                     
                 </div> */}
 
-                <div className='flex justify-center pt-[75px] xl:mx-32  lg:mx-20 md:mx-20 sm:mx-5 mx-10 '>
+                <div className='flex justify-center pt-[100px] xl:mx-32  lg:mx-20 md:mx-20 sm:mx-5 mx-10 '>
                     <img src={require('./title.png')} className=' md:bg-cover bg-no-repeat bg-center'/>
 
                 </div>
-
-
-
-
                 
 
-                <div className='  pt-[75px] pb-14 grid lg:grid-cols-3 md:grid-cols-3 gap-8 sm:grid-cols-3 grid-cols-1  xl:mx-64 lg:mx-20 md:mx-20 sm:mx-5 mx-10'>
+                <div className='  xl:pt-[75px] lg:pt-[75px] md:pt-[75px] sm:pt-[75px] pt-[50px] pb-14 grid lg:grid-cols-3 md:grid-cols-3 gap-8 sm:grid-cols-3 grid-cols-1  xl:mx-64 lg:mx-20 md:mx-20 sm:mx-5 mx-10'>
                 {/* <h5>SLUG TOKEN</h5> */}
                 
                     <div className=' flex flex-col items-center justify-center xl:col-span-2 lg:col-span-2 md:col-span-2 sm:col-span-2 col-span-1 p-4 bg-white pixel-border border-gray-200 shadow-md sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700'>
@@ -95,6 +96,12 @@ const Landing = () => {
                         </h3>
                         
                     </div>
+
+                    {/* <div className='xl:col-span-3 lg:col-span-3 md:col-span-3 sm:col-span-3 col-span-1'>
+                        <EventTable contract={props}/>
+
+                    </div> */}
+
 
                     
 

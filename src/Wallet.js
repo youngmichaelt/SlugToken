@@ -30,6 +30,9 @@ const Wallet = () => {
     const [modalOpen, setModalOpen] = useState();
     const [ethersUpdated, setEthersUpdated] = useState(false);
 
+    const [network, setNetwork] = useState(null);
+
+
     
     const checkIfWalletIsConnected = async () => {
         try{
@@ -87,6 +90,7 @@ const Wallet = () => {
             console.log("Please install metamask");
             setErrorMessage("Please install metamask");
             setModalOpen(true);
+
         }
     }
 
@@ -148,18 +152,25 @@ const Wallet = () => {
         }
         return x;
      }
+     const getNetwork = async () => {
+        let n =  await provider.getNetwork(1);
+        console.log(n.name);
+        setNetwork(n.name);
+    }
 
      useEffect(() => {
-        if (defaultAccount == null){
+        if (defaultAccount == null && window.ethereum && window.ethereum.isMetaMask){
             checkIfWalletIsConnected();
+            
         }
+        getNetwork();
         //checkIfWalletIsConnected();
         // if (contract != null){
             
         //     updateBalance();
         //     updateTokenName();
         // } 
-    }, [contract, defaultAccount, window.ethereum])
+    }, [contract, defaultAccount, window.ethereum, network])
 
      let props = {
          contract: contract,
@@ -167,6 +178,7 @@ const Wallet = () => {
          provider: provider,
          setOpenModal: (x) => {setModalOpen(x)},
          setErrorMessage: (x) => {setErrorMessage(x)},
+         network: network
 
      }
 
@@ -180,16 +192,23 @@ const Wallet = () => {
      }
 
     return (
-    <div className="bg-[url('/src/slugp.png')] md:bg-cover bg-no-repeat bg-center md:bg-top w-screen h-screen scroll   ">
+
+        
+    <div className=" bg-[url('/src/slugpcopy.png')]  md:bg-cover bg-no-repeat bg-center md:bg-top w-screen h-screen scroll  justify-center  ">
         {/* <div className='justify-end flex '>
                     <NavBar className=''/>
                     
         </div> */}
-        <div className=' '>
+        <div className='justify-end flex relative'>
             <NavBar className=''/>
-            <button id={styles.connectWalletButtton} onClick={connectWalletHandler}>{connButtonText}</button>
+            <div className='flex justify-start max-w-[300px] p-2 pt-5 absolute left-0'>
+                    <img src={require('./title.png')} className=' md:bg-cover bg-no-repeat bg-center'/>
+
+                </div>
             {/* <h3 id={styles.header} className=''>Slug Token</h3> */}
         </div>
+        <button className='p-2 bottom-3 left-3 absolute bg-white pixel-border' id={styles.connectWalletButtton} onClick={connectWalletHandler}>{connButtonText}</button>
+
 
         
         
@@ -200,7 +219,7 @@ const Wallet = () => {
             </div> */}                
 
 
-            <div className='xl:mt-[75px] lg:mt-[75px]  md:mt-[75px]  sm:mt-[50px] mt-[50px] xl:text-xl lg:text-xl md:text-xl sm:text-xl text-xl ' id={styles.container}>
+            <div className='xl:mt-[135px] lg:mt-[135px]  md:mt-[125px]  sm:mt-[100px] mt-[90px] xl:text-2xl lg:text-2xl md:text-2xl sm:text-2xl text-xl  ' id={styles.container}>
                 
                 <div className='flex items-center justify-center mb-7 '>
                     
@@ -212,7 +231,9 @@ const Wallet = () => {
                 </div>
 
                 <hr className='my-10'/>
-                <h3 className='mb-5'>Recent Taxes Collected</h3>
+                <div className='justify-center flex items-center '>
+                    <h3 className='mb-5 pixel-border bg-white border px-30 justify-center flex items-center text-2xl'>Recent Taxes Collected</h3>
+                </div>
                 <div className='mt-2 mb-[150px] flex items-center justify-center '>
                 <EventTable contract={props}/>
                 </div>

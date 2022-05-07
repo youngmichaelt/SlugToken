@@ -73,14 +73,14 @@ const EventTable = (props) => {
     },[contract, defaultAccount])
 
     return (
-        <div className='p-4 bg-white  rounded-xl border border-gray-200 xl:mx-32 lg:mx-20 md:mx-20 sm:mx-5 mx-3 '>
+        <div className='p-4 bg-white pixel-border border border-gray-200 xl:mx-32 lg:mx-20 md:mx-20 sm:mx-5 mx-3 xl:text-xl lg:text-xl md:text-xl sm:text-xl text-xl'>
             
             <table className='flex justify-center table-fixed ' id={styles.eventtable}>
                 <tbody className=' table-fixed '>
                 <tr className='table-fixed' key='10000'>
-                    <th className='xl:px-10 lg:px-10 md:px-10 sm:px-10 px-3'>Timestamp</th>
-                    <th className='xl:px-10 lg:px-10 md:px-10 sm:px-10 px-3'>Txn Hash</th>
-                    <th className='xl:px-10 lg:px-10 md:px-10 sm:px-10 px-3'>Amount</th>
+                    <th className='xl:px-16 lg:px-16 md:px-10 sm:px-10 px-3'>Timestamp</th>
+                    <th className='xl:px-16 lg:px-16 md:px-10 sm:px-10 px-3'>Txn Hash</th>
+                    <th className='xl:px-16 lg:px-16 md:px-10 sm:px-10 px-3'>Amount</th>
                     
                 </tr>
                     {Event}
