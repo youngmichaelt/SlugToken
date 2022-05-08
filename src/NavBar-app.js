@@ -13,11 +13,19 @@ const MenuItem = (props) => {
         Home: "",
         Buy: "",
         Community: "",
-        Docs: "",
+        Docs: "https://mike-young.gitbook.io/slugtoken/",
         Slugmap: ""
     }
     let url = window.location.origin + "/";
-    return <a href={url+pathDict[text]}>
+    if (text == 'Docs'){
+        url = pathDict[text];
+    } else {
+        url += pathDict[text];
+    }
+
+
+
+    return <a href={url}>
         <button className=' header-button justify-center  bg-white border hover:bg-gray-300  '>
         <span className=''>{text}</span>
         </button>

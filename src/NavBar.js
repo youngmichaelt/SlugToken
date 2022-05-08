@@ -9,14 +9,19 @@ import Hamburger from 'hamburger-react'
 const MenuItem = (props) => {
     let text = props.text;
     let pathDict = {
-        Stake: "Stake",
+        Stake: "stake",
         Buy: "",
         Community: "",
-        Docs: "",
+        Docs: "https://mike-young.gitbook.io/slugtoken/",
         Slugmap: ""
     }
     let url = window.location.origin + "/";
-    return <a href={url+pathDict[text]} className=' '>
+    if (text == 'Docs'){
+        url = pathDict[text];
+    } else {
+        url += pathDict[text];
+    }
+    return <a href={url} className=' '>
         <button className=' header-button justify-center bg-white border hover:bg-gray-300 '>
         <span className=''>{text}</span>
         </button>
