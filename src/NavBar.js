@@ -65,10 +65,15 @@ const NavBar = () => {
     window.addEventListener("resize", handleResize);
     window.addEventListener("load", handleResize);
 
-
+    //  if (window.readyState === 'complete') {
+    //     handleResize();
+    //   } else {
+    //     window.addEventListener('load', handleResize);
+    //   }
+    // handleResize();
     useEffect(() => {
-        
-    })
+        handleResize();
+    },[])
 
     var myMenu = ['Stake','Buy','Community', 'Docs','Slugmap'];
     return (

@@ -50,7 +50,7 @@ const Landing = () => {
                             Stake Tokens, Win Money
                         </h5>
                         <h3 className='pt-4 px-5 lg:text-2xl md:text-2xl sm:text-2xl text-xl'>
-                            Stake your $SLUG tokens for a chance to win anytime a transaction takes place.
+                            Stake your $SLUG tokens for a chance to win everytime a transaction takes place.
                         </h3>
                     </div>
 
@@ -70,12 +70,58 @@ const Landing = () => {
                             How it works
                         </h5>
                         <h3 className='pt-4 px-5 lg:text-2xl md:text-2xl sm:text-2xl text-xl'>
-                            Each $SLUG Token transaction has a small tax of 10%, this tax is sent to a random stakeholders address.
-                            The tokenomics of SlugToken promote hodling with a staking + sell tax model, which increases the wealth of token holders.
+                        The tokenomics of SlugToken promote hodling with a staking + selling tax model, which increases the wealth of token holders.
+                        Each $SLUG Token transaction has a small fee of 10%, this fee is sent to a random stakeholder.
                         </h3>
 
                         <h3 className='pt-4 px-5 lg:text-2xl md:text-2xl sm:text-2xl text-xl'>
                             Check out our documentation for more information.
+                        </h3>
+                        
+                    </div>
+
+                    <div className='pixel-border flex flex-col items-center justify-center row-span-4  xl:col-span-3 lg:col-span-3 md:col-span-3 sm:col-span-3 col-span-1 p-4 bg-white  border border-gray-200 shadow-md sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700'>
+                        <h5 className='lg:text-3xl md:text-3xl sm:text-3xl text-3xl'>
+                            Example
+                        </h5>
+
+                        <h3 className=' px-5 lg:text-2xl md:text-2xl sm:text-2xl text-xl'>
+                            Slug 1 sends 100 $SLUG to Slug 2
+                        </h3>
+                        <br></br>
+                        <h3 className=' px-5 lg:text-2xl md:text-2xl sm:text-2xl text-xl'>
+                            Slug 2 receives 90 $SLUG because of the 10% fee, and Slug 3 is the random stakeholder that wins the 10 $SLUG fee.
+                        </h3>
+                        <br></br>
+
+                        <h3 className='pt-4 lg:text-2xl md:text-2xl sm:text-2xl text-xl flex'>
+                            <img src={require('./sluglayer.png')} style={{'transform' :'scaleX(-1)'}} className='xl:pl-5 lg:pl-5 md:pl-5 sm:pl-3 xl:max-h-[100px] lg:max-h-[100px] md:max-h-[75px] sm:max-h-[75px] max-h-[40px] md:bg-cover bg-no-repeat bg-center'/>
+                            --100 $SLUG--> 
+                            <img src={require('./sluglayer.png')} className='xl:pl-5 lg:pl-5 md:pl-5 sm:pl-3 xl:max-h-[100px] lg:max-h-[100px] md:max-h-[75px] sm:max-h-[75px] max-h-[40px] md:bg-cover bg-no-repeat bg-center'/>
+
+                        </h3>
+                        
+
+                        <h3 className=' px-5 lg:text-2xl md:text-2xl sm:text-2xl text-xl'>
+                            |
+                        </h3>
+                       
+                        <h3 className=' px-5 lg:text-2xl md:text-2xl sm:text-2xl text-xl'>
+                            10 $SLUG Fee
+                        </h3>
+                        
+                        <h3 className=' px-5 lg:text-2xl md:text-2xl sm:text-2xl text-xl'>
+                            |
+                        </h3>
+                        <h3 className=' px-5 lg:text-2xl md:text-2xl sm:text-2xl text-xl'>
+                            V
+                            
+                        </h3>
+
+                        <h3 className='pt-4 px-5 lg:text-2xl md:text-2xl sm:text-2xl text-xl flex flex-col'>
+                            
+                            <img src={require('./sluglayer.png')} className=' xl:max-h-[100px] lg:max-h-[100px] md:max-h-[75px] sm:max-h-[75px] max-h-[40px] md:bg-cover bg-no-repeat bg-center'/>
+
                         </h3>
                         
                     </div>

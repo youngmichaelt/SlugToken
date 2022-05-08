@@ -233,7 +233,7 @@ const Wallet = () => {
 
                 <hr className='my-10'/>
                 <div className='justify-center flex items-center '>
-                    <h3 className='mb-5 pixel-border bg-white border px-30 justify-center flex items-center text-2xl'>Recent Taxes Collected</h3>
+                    <h3 className='mb-5 pixel-border bg-white border px-30 justify-center flex items-center text-2xl'>Recent Fees Collected</h3>
                 </div>
                 <div className='mt-2 mb-[150px] flex items-center justify-center '>
                 <EventTable contract={props}/>
